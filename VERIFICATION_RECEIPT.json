@@ -1,0 +1,65 @@
+{
+  "artifact": "fail-closed-graph-demo",
+  "checks": {
+    "comparison_contract_tests": {
+      "expected_tests": 12,
+      "passed": true,
+      "reported_expected_count": true,
+      "return_code": 0
+    },
+    "compile": {
+      "passed": true,
+      "return_code": 0
+    },
+    "evaluation": {
+      "failures": [],
+      "iterations_per_scenario": 100,
+      "passed": true,
+      "return_code": 0,
+      "total_attempted": 400,
+      "total_passed": 400
+    },
+    "unit_tests": {
+      "expected_tests": 7,
+      "passed": true,
+      "reported_expected_count": true,
+      "return_code": 0
+    }
+  },
+  "elapsed_seconds": 15.20638,
+  "environment": {
+    "implementation": "CPython",
+    "operating_system": "Windows",
+    "python": "3.12.5"
+  },
+  "files": {
+    "comparisons/__init__.py": {
+      "sha256": "bcc08be4ded036a0e09fdcd38b1584566ee6a79de55b9078ed52893bb8a64623"
+    },
+    "comparisons/recovery_contract.py": {
+      "sha256": "7be578c9c917112d49278ac6e331ff0bc54925a145f2546673d311d464648e6c"
+    },
+    "comparisons/test_recovery_contract.py": {
+      "sha256": "5cda8f0637c919ba0fd6a88ed2c5dfe840721b4d7176753e4fddcbc1c9f80d8d"
+    },
+    "evaluate.py": {
+      "sha256": "88178de97b0bc2cdc0650251daa486fb8a0ef6b2e4c86cd0d6eb4965b38d11b0"
+    },
+    "graph_demo.py": {
+      "sha256": "e2a96d5f7566cd6ebe163672f0f44a78fa2e6130b6b00ffc03a713f0138d1adc"
+    },
+    "test_graph_demo.py": {
+      "sha256": "882e4f21f9ec1270c2a02bebe263a22314fa5c81853a647d8a5c8939e24eb367"
+    },
+    "test_verifier_guards.py": {
+      "sha256": "b090fc323497c4aa3f083645252ddb16a94fcdfbf8986c60408d22ec980a5155"
+    },
+    "verify_release.py": {
+      "sha256": "b77b0cb73f9388bc4f232e2ec2c8468537d62ffa5158c0b65ada0aa7c92e45f6"
+    }
+  },
+  "generated_at_utc": "2026-09-12T00:16:49.998035+00:00",
+  "passed": true,
+  "privacy": "Receipt excludes username, hostname, absolute path, and environment variables.",
+  "schema_version": 1
+}

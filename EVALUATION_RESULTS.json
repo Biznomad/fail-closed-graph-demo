@@ -1,0 +1,30 @@
+{
+  "artifact": "fail-closed-graph-demo",
+  "elapsed_seconds": 13.611366,
+  "failures": [],
+  "iterations_per_scenario": 100,
+  "python_standard_library_only": true,
+  "scenarios": {
+    "journal_ahead_recovery": {
+      "attempted": 100,
+      "passed": 100
+    },
+    "retry_bound": {
+      "attempted": 100,
+      "passed": 100
+    },
+    "success_path": {
+      "attempted": 100,
+      "passed": 100
+    },
+    "tamper_rejection": {
+      "attempted": 100,
+      "passed": 100
+    }
+  },
+  "schema_version": 1,
+  "source_sha256": "e2a96d5f7566cd6ebe163672f0f44a78fa2e6130b6b00ffc03a713f0138d1adc",
+  "test_sha256": "882e4f21f9ec1270c2a02bebe263a22314fa5c81853a647d8a5c8939e24eb367",
+  "total_attempted": 400,
+  "total_passed": 400
+}

@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "scope": "Officially documented persistence and pause/resume mechanisms; application-level external-effect guarantees are evaluated separately.",
+  "source_registry": {
+    "1": "https://docs.langchain.com/oss/python/langgraph/persistence",
+    "2": "https://openai.github.io/openai-agents-python/human_in_the_loop/",
+    "3": "https://docs.crewai.com/v1.15.20/en/concepts/flows.md",
+    "4": "https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/state.html",
+    "5": "https://pydantic.dev/docs/ai/harness/overview/",
+    "6": "https://ai.pydantic.dev/integrations/durable_execution/temporal",
+    "7": "https://docs.langchain.com/oss/python/langgraph/interrupts",
+    "8": "https://hermes-agent.nousresearch.com/docs/user-guide/features/cron",
+    "9": "https://hermes-agent.nousresearch.com/docs/user-guide/features/kanban",
+    "10": "https://hermes-agent.nousresearch.com/docs/user-guide/sessions",
+    "11": "https://pi.dev/docs/latest/session",
+    "12": "https://pi.dev/docs/latest/extensions",
+    "13": "https://github.com/NVIDIA/NeMo-Agent-Toolkit",
+    "14": "https://github.com/deepseek-ai/deepseek-harness",
+    "15": "https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/architecture.md",
+    "16": "https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/subsystems/session.md",
+    "17": "https://github.com/deepseek-ai/deepseek-harness/blob/master/SAFETY.md"
+  },
+  "frameworks": [
+    {
+      "id": "langgraph",
+      "native_mechanisms": [
+        "thread-scoped checkpointers",
+        "persistent stores",
+        "interrupt and Command resume"
+      ],
+      "application_layer_required": [
+        "stable external action identity",
+        "idempotency",
+        "provider lookup after ambiguous result",
+        "durable effect receipt"
+      ],
+      "sources": [
+        1,
+        7
+      ]
+    },
+    {
+      "id": "openai-agents-sdk",
+      "native_mechanisms": [
+        "needs_approval tool gate",
+        "interruptions",
+        "serializable RunState",
+        "approve/reject resume"
+      ],
+      "application_layer_required": [
+        "external-effect idempotency",
+        "authoritative provider lookup",
+        "durable action receipt",
+        "exclusive resumed-state ownership"
+      ],
+      "sources": [
+        2
+      ]
+    },
+    {
+      "id": "crewai-flows",
+      "native_mechanisms": [
+        "structured or unstructured flow state",
+        "class or method @persist",
+        "SQLite persistence",
+        "resume and fork modes"
+      ],
+      "application_layer_required": [
+        "approval binding",
+        "stable external action identity",
+        "no blind side-effect retry",
+        "effect receipt reconciliation"
+      ],
+      "sources": [
+        3
+      ]
+    },
+    {
+      "id": "autogen-agentchat",
+      "native_mechanisms": [
+        "agent save_state/load_state",
+        "team save_state/load_state",
+        "serializable state dictionary"
+      ],
+      "application_layer_required": [
+        "transactional save policy",
+        "tool approval gate",
+        "idempotency",
+        "external effect receipt and lookup"
+      ],
+      "sources": [
+        4
+      ]
+    },
+    {
+      "id": "pydantic-ai-durable",
+      "native_mechanisms": [
+        "Pydantic AI Harness capabilities",
+        "Temporal durable execution integration",
+        "workflow replay and activities"
+      ],
+      "application_layer_required": [
+        "idempotent activities",
+        "bounded retry policy",
+        "stable activity names",
+        "authoritative external-effect reconciliation"
+      ],
+      "sources": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": "hermes-agent",
+      "native_mechanisms": [
+        "SQLite-backed resumable sessions",
+        "durable Cron job records and execution attempts",
+        "durable SQLite Kanban task state",
+        "atomic Kanban claims, crash reclaim, bounded retries, and human block/unblock"
+      ],
+      "application_layer_required": [
+        "stable external action identity",
+        "payload-bound approval",
+        "durable external-effect receipt",
+        "authoritative provider lookup after ambiguous result",
+        "no blind retry of consequential tools"
+      ],
+      "sources": [
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "pi-agent",
+      "native_mechanisms": [
+        "JSONL session trees with stable entry IDs and parent IDs",
+        "resume, fork, import, and custom extension-state entries",
+        "tool-call interception and UI confirmation via extensions"
+      ],
+      "application_layer_required": [
+        "durable action journal outside ordinary conversation state",
+        "stable external action identity",
+        "payload-bound approval extension",
+        "provider lookup after ambiguous effect",
+        "sandbox or least-privilege boundary"
+      ],
+      "sources": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": "nvidia-nemo-agent-toolkit",
+      "native_mechanisms": [
+        "framework-agnostic agent and workflow integration",
+        "observability and tracing integrations",
+        "profiling and evaluation systems",
+        "middleware and human-in-the-loop integration points"
+      ],
+      "application_layer_required": [
+        "durable workflow state supplied by the selected underlying framework or application",
+        "stable external action identity",
+        "approval and effect journal",
+        "authoritative provider reconciliation",
+        "bounded retry and hard-stop policy"
+      ],
+      "sources": [
+        13
+      ]
+    },
+    {
+      "id": "deepseek-harness",
+      "native_mechanisms": [
+        "plugin-composed agent runtime",
+        "append-only typed session-event log",
+        "session persistence, resume, and awaited durability flush",
+        "approval-policy plugins and reversible plugin registrations"
+      ],
+      "application_layer_required": [
+        "stable external action identity",
+        "payload-bound approval",
+        "durable external-effect receipt distinct from session events",
+        "provider lookup after ambiguous effect",
+        "no blind consequential-tool replay"
+      ],
+      "sources": [
+        14,
+        15,
+        16,
+        17
+      ]
+    }
+  ],
+  "claim_boundary": "Native state persistence, replay, or HITL does not by itself prove exactly-once external effects or fail-closed recovery."
+}

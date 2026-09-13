@@ -1,0 +1,42 @@
+name: test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.11", "3.12", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile
+        run: python -m compileall -q graph_demo.py test_graph_demo.py evaluate.py verify_release.py test_verifier_guards.py comparisons
+      - name: Unit tests
+        run: python -m unittest -v test_graph_demo.py
+      - name: Comparative recovery-contract tests
+        run: python -m unittest -v comparisons/test_recovery_contract.py
+      - name: Verifier mutation guards
+        run: python -m unittest -v test_verifier_guards.py
+      - name: Evaluation matrix
+        run: python evaluate.py --iterations 100 --output EVALUATION_RESULTS.ci.json
+      - name: Release verifier
+        run: python verify_release.py --iterations 100 --output VERIFICATION_RECEIPT.ci.json
+      - name: Preserve verification receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: |
+            EVALUATION_RESULTS.ci.json
+            VERIFICATION_RECEIPT.ci.json

@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+state.json
+receipts.jsonl
+*.tmp
+EVALUATION_RESULTS.ci.json
+VERIFICATION_RECEIPT.*.json
